@@ -29,6 +29,11 @@ def get_data(filenames):
             data.append(hdul[0].data)
     return np.array(data)
 
+# data: numpy array
+def plot_img(data):
+    plt.figure(figsize=(10,10))
+    plt.imshow(data, norm=colors.LogNorm(), cmap='gray')
+
 # Computes average of given frames
 def average(folder, start, end):
     filenames = get_file_names(folder, start, end)
