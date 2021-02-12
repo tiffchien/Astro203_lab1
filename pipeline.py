@@ -18,13 +18,14 @@ def get_file_names(folder, nums):
         lst.append(folder + '/n' + '0'*(4-num_digits) + str(num) + '.fits')
     return lst
 
-# Opens (and closes) a single .fits file and returns the data (numpy array) in the PrimaryHDU
+# Opens (and closes) a list of .fits file and returns the data (numpy arrays) in the PrimaryHDUs
 # inputs:
-	# full path to single .fits file
+	# list of full paths to .fits file, e.g. output of get_file_names()
 # outputs:
-	# data (numpy array)
-def get_data(filename):
-    data = None
-    with fits.open(filename) as hdul:
-        data = hdul[0].data
-    return data
+	# numpy array of all data (shape: n_images x image_size x image_size)
+def get_data(filenames):
+    data = []
+    for filename in filenames:
+	    with fits.open(filename) as hdul:
+	        data.append(hdul[0].data)
+    return np.array(data)
