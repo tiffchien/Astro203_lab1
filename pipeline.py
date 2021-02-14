@@ -22,20 +22,29 @@ def get_file_names(folder, start, end):
     # list of full paths to .fits file, e.g. output of get_file_names()
 # outputs:
     # numpy array of all data (shape: n_images x image_size x image_size)
-def get_data(filenames):
+def get_data_from_path(filenames):
     data = []
     for filename in filenames:
         with fits.open(filename) as hdul:
             data.append(hdul[0].data)
     return np.array(data)
 
+def get_data(folder, start, end):
+    filenames = get_file_names(folder, start, end)
+    all_frames = get_data_from_path(filenames)
+    return all_frames
+
 # data: numpy array
-def plot_img(data):
+def plot_img(data, vmin=None, vmax=None):
     plt.figure(figsize=(10,10))
-    plt.imshow(data, norm=colors.LogNorm(), cmap='gray')
+    plt.imshow(data, norm=colors.LogNorm(), cmap='gray', vmin=vmin, vmax=vmax)
 
 # Computes average of given frames
 def average(folder, start, end):
-    filenames = get_file_names(folder, start, end)
-    all_frames = get_data(filenames)
+    all_frames = get_data(folder, start, end)
     return np.mean(all_frames, axis=0)
+
+# Computes median of given frames
+def median(folder, start, end):
+    all_frames = get_data(folder, start, end)
+    return np.median(all_frames, axis=0)
