@@ -48,3 +48,14 @@ def average(folder, start, end):
 def median(folder, start, end):
     all_frames = get_data(folder, start, end)
     return np.median(all_frames, axis=0)
+
+# Compute median of given frames divided by coadd number
+def coadd_red_median(folder, start, end, coadd):
+    all_frames = get_data(folder, start, end)
+    return np.median(all_frames, axis=0)/coadd    
+
+# Takes x (integration time) and y (coadd reduced median) arrays and does polynomial fit of given degree
+def trend_poly(t_int, signal_int, degree):
+    fit = np.polyfit(t_int, signal_int, degree)
+    dark_poly = np.polyval(fit, t_int)
+    return dark_poly
