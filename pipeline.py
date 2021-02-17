@@ -76,6 +76,21 @@ def process_image(folder, img_index, master_dark, master_flat, master_sky):
     raw = get_data(folder, img_index, img_index)[0]
     return ((raw - master_dark) / master_flat) - master_sky
 
+# Processes images and then writes them to new fits files (saved in folder out_folder).
+# Copies the header of the original file to the new file.
+def process_fits(in_folder, out_folder, start, end, master_dark, master_flat, master_sky):
+    raw_imgs = get_data(in_folder, start, end)
+    in_filenames = get_file_names(in_folder, start, end)
+    out_filenames = get_file_names(out_folder, start, end)
+    for i in range(raw_imgs.shape[0]):
+        raw = raw_imgs[i]
+        processed = process_image(in_folder, start+i, master_dark, master_flat, master_sky)
+
+        in_header = None
+        with fits.open(in_filenames[i]) as hdu_in:
+            in_header = hdu_in[0].header
+
+        fits.writeto(out_filenames[i], processed, header=in_header)
 
 
 
