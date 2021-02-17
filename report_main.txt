@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
-Astro 203 Lab 1
+Astro 203 Lab 1 Report
 2021/02/16
 ----------------------------------------------------------------------
 
@@ -9,7 +9,7 @@ Tiffany Chien
 Oliver Jeong
 Kishore Patra
 
-General Info
+General Info (Q1-2)
 ----------------------------------------------------------------------
 This project aims to take NIRC2 data, characterize its detector
 properties, remove instrument noise from astronomical data, and
@@ -21,8 +21,16 @@ readout into 32 channels. These detectors have high quantum efficiency
 in the 1 - 5 um range using a 1024x1024 InSb detector. We specifically
 analyzed observations of astronomical object OB150029, file number 165.
 
-Installation Notes
+Characterization of detector properties (Q3)
 ----------------------------------------------------------------------
-This program does not require installation if astropy is installed.
+Read noise: see file Readnoise.ipynb
+Dark current: see file calc_dark.ipynb
+Sky background: see file Sky Estimation.ipynb
 
-Usage
+Pipeline: Information, Installation, and Usage (Q4-5)
+----------------------------------------------------------------------
+See file test.ipynb
+
+SNR (Q6)
+----------------------------------------------------------------------
+See file Calculate_SNR.ipynb
